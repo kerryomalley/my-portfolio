@@ -6,26 +6,46 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
-    <div id="content">
-      <h1 class = "center" >Kerry O'Malley</h1>
-      <img src = "https://media-exp1.licdn.com/dms/image/C4D03AQFy-f61l0OiHw/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=fs4yD-SxiV1jI3aa6gbf1G4-57-NdfMwESHhVMVf6aE" alt = "me" class = "center">
-      <p> Hi! My name is Kerry, and I am a STEP Intern and rising 3rd year at the University of Chicago, studying Computer Science. </p> 
-      <p> I am from Elmhurst, Illinois, a suburb of Chicago, and am currently completing the remote internship there! I really enjoy sports, and am on the varsity lacrosse team at UChicago. I also used to play tennis, and still play it for fun whenever I can. Outside of sports, I love biking, and I try to go on several long bike rides a week. When Im just trying to chill, I tend to watch netflix, my most recent show being Money Heist. </p> 
-      <p> Here is a list of some projects I have worked on: </p>
-      <ul> 
-	      <li> Created my own version of a linux shell </li>
-	      <li> Coded the game Go </li>
-	      <li> Developed curriculum on how to create a web application using flask and python </li>
-	      <li> Created my own cersion of the Malloc function </li>
-	      <li> Creaated a 2-way associative cache with LRU replacement </li>
-      </ul> 
-      <img src = "https://www.sierraclub.org/sites/www.sierraclub.org/files/styles/flexslider_full/public/sierra/articles/big/SIERRA%20Dogs%20WB.jpeg?itok=FM3r8nkh" alt = "My dog Atticus"> 
-      <p class = "center">Click here to get a random fact about me! </p>
-      <button onclick="addRandomGreeting()" class = "center">Fact Button</button>
-      <div id="fact-container" class = "center"></div>
-      <a href = "https://www.linkedin.com/in/kerry-o-malley-74a320179/" >Linkedin Profile</a><br> 
-      <a href = "https://github.com/kerryomalley">Github Profile</a> 
-    </div>
+  <body> 
+      
+      <div class = "headerofpage"> 
+	      <h1>Kerry O'Malley</h1>
+	      <h3> Portfolio </h3>
+      </div>
+	
+      <button class = "tabs" onclick= "openPage('AboutMe')">About Me</button> 
+      <button class = "tabs" onclick= "openPage('Programming')">Programming</button>
+      <button class = "tabs" onclick= "openPage('FunFacts')">Fun Facts</button>
+      <button class = "tabs" onclick= "openPage('Pics')">Pictures</button> 
+
+      <div id="AboutMe" class = "innercontent"> 
+	      <img src = "https://media-exp1.licdn.com/dms/image/C4D03AQFy-f61l0OiHw/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=fs4yD-SxiV1jI3aa6gbf1G4-57-NdfMwESHhVMVf6aE" alt = "me" class = "center">
+      	      <p> Hi! My name is Kerry, and I am a STEP Intern and rising 3rd year at the University of Chicago, studying Computer Science. </p> 
+     	      <p> I am from Elmhurst, Illinois, a suburb of Chicago, and am currently completing the remote internship there! I really enjoy sports, and am on the varsity lacrosse team at UChicago. I also used to play tennis, and still play it for fun whenever I can. Outside of sports, I love biking, and I try to go on several long bike rides a week. When Im just trying to chill, I tend to watch netflix, my most recent show being Money Heist. </p> 
+      </div>
+
+      <div id="Programming" class = "innercontent">
+	      <p> I got into coding senior year of high school when I decided to take a Computer Science course offered by my school. We learned Java, and did a ton of interesting and fun projects, so it ended up being my favorite class of that year. I have been able to learn so much more through the programming courses I have taken so far in college, including C, and in my time helping develop CS curriculum for CPS through a non-profit, I was able to learn Python, HTML, and CSS. I've loved all the programming I've been able to do so far in my life, and am so excited to apply what I know and develop my skills further this summer! </p>  
+              <p> Here is a list of some projects I have worked on: </p>
+      	      <ul> 
+		      <li> Created my own version of a linux shell </li>
+	      	      <li> Coded the game Go </li>
+	              <li> Developed curriculum on how to create a web application using flask and python </li>
+	              <li> Created my own cersion of the Malloc function </li>
+	              <li> Creaated a 2-way associative cache with LRU replacement </li>
+              </ul> 
+	      <a href = "https://www.linkedin.com/in/kerry-o-malley-74a320179/">LinkedIn Profile</a> <br>
+	      <a href = "https://github.com/kerryomalley">GitHub Profile</a>
+      </div> 
+
+      <div id="Pics" class = "innercontent"> 
+	      <img src = "https://www.sierraclub.org/sites/www.sierraclub.org/files/styles/flexslider_full/public/sierra/articles/big/SIERRA%20Dogs%20WB.jpeg?itok=FM3r8nkh" alt = "My dog Atticus"> 
+      </div>
+
+      <div id="FunFacts" class = "innercontent">
+	      <p class = "center">Click here to get a random fact about me! </p>
+      	      <button onclick="addRandomGreeting()" class = "center">Fact Button</button>
+      	      <div id="fact-container" class = "center"></div>
+      </div>
   </body>
 </html>

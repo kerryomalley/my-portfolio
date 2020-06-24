@@ -26,3 +26,22 @@ function addRandomGreeting() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+function openPage(pageName){
+	var i, innercontent, links;
+	innercontent = document.getElementsByClassName("innercontent");
+	for(i = 0; i < innercontent.length; i++) {
+		innercontent[i].style.display = "none";
+	}
+
+	links = document.getElementsByClassName("tabs");
+	for(i = 0; i < links.length; i++) {
+		links[i].style.backgroundColor = "";
+	}
+
+	document.getElementById(pageName).style.display = "block";
+
+	elmnt.style.backgroundColor = color; 
+}
+
+document.getElementById("defaultOpen").click();
