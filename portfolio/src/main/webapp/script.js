@@ -40,8 +40,6 @@ function openPage(pageName){
 	}
 
 	document.getElementById(pageName).style.display = "block";
-
-	elmnt.style.backgroundColor = color; 
 }
 
 document.getElementById("defaultOpen").click();

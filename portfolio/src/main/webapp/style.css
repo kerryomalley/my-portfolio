@@ -2,6 +2,11 @@ body{
  height: 100%;
  margin: 0; 
  font-family: Times New Roman; 
+ padding: 20px;
+}
+
+* {
+	box-sizing: border-box;
 }
 
 #content {
@@ -48,5 +53,31 @@ body{
 	display: none;
 	padding: 100px 20px; 
 	height: 80%;
+}
+
+.row {
+	margin: 8px -16px;
+}
+
+.row,
+.row > .column {
+	padding: 8px;
+}
+
+.column {
+	float: left;
+	width: 25%;
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.piccontent {
+	background-color: white;
+	padding: 10px;
+	color: black;
 }
 
