@@ -28,7 +28,7 @@ body{
 
 .headerofpage {
 	text-align: center;
-	background: navy;
+	background: plum;
 	color: White;
 	font-size: 25px;
 }
@@ -49,10 +49,11 @@ body{
 
 .innercontent {
 	color: white;
-	background-color: coral;
+	background-color: salmon;
 	display: none;
 	padding: 100px 20px; 
-	height: 80%;
+	height: 100%;
+	width: 100%
 }
 
 .row {
