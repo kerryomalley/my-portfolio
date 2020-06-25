@@ -2,6 +2,11 @@ body{
  height: 100%;
  margin: 0; 
  font-family: Times New Roman; 
+ padding: 20px;
+}
+
+* {
+	box-sizing: border-box;
 }
 
 #content {
@@ -23,7 +28,7 @@ body{
 
 .headerofpage {
 	text-align: center;
-	background: navy;
+	background: plum;
 	color: White;
 	font-size: 25px;
 }
@@ -44,9 +49,36 @@ body{
 
 .innercontent {
 	color: white;
-	background-color: coral;
+	background-color: salmon;
 	display: none;
 	padding: 100px 20px; 
-	height: 80%;
+	height: 100%;
+	width: 100%
+}
+
+.row {
+	margin: 8px -16px;
+}
+
+.row,
+.row > .column {
+	padding: 8px;
+}
+
+.column {
+	float: left;
+	width: 25%;
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.piccontent {
+	background-color: white;
+	padding: 10px;
+	color: black;
 }
 
