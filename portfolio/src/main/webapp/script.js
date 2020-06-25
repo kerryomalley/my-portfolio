@@ -27,7 +27,7 @@ function addRandomGreeting() {
   factContainer.innerText = fact;
 }
 
-function openPage(pageName){
+function openPage(evt, pageName){
 	var i, innercontent, links;
 	innercontent = document.getElementsByClassName("innercontent");
 	for(i = 0; i < innercontent.length; i++) {
@@ -36,10 +36,12 @@ function openPage(pageName){
 
 	links = document.getElementsByClassName("tabs");
 	for(i = 0; i < links.length; i++) {
-		links[i].style.backgroundColor = "";
+		links[i].className = links[i].className.replace(" active", "")
 	}
 
 	document.getElementById(pageName).style.display = "block";
+	evt.currentTarget.className += " active";
+	
 }
 
-document.getElementById("defaultOpen").click();
+//document.getElementById("defaultOpen").click();
