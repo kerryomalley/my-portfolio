@@ -43,5 +43,3 @@ function openPage(evt, pageName){
 	evt.currentTarget.className += " active";
 	
 }
-
-//document.getElementById("defaultOpen").click();
