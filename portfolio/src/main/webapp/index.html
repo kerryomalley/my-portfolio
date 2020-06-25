@@ -13,12 +13,12 @@
 	      <h3> Portfolio </h3>
       </div>
 	
-      <button class = "tabs" onclick= "openPage('AboutMe')" id = "defaultOpen"  >About Me</button> 
-      <button class = "tabs" onclick= "openPage('Programming')">Programming</button>
-      <button class = "tabs" onclick= "openPage('FunFacts')">Fun Facts</button>
-      <button class = "tabs" onclick= "openPage('Pics')">Pictures</button> 
+      <button class = "tabs active" onclick= "openPage(event, 'AboutMe')" id = "defaultOpen"  >About Me</button> 
+      <button class = "tabs" onclick= "openPage(event, 'Programming')">Programming</button>
+      <button class = "tabs" onclick= "openPage(event, 'FunFacts')">Fun Facts</button>
+      <button class = "tabs" onclick= "openPage(event, 'Pics')">Pictures</button> 
 
-      <div id="AboutMe" class = "innercontent"> 
+      <div id="AboutMe" class = "innercontent" style=display:block> 
 	      <h1 class = "center"> Introduction </h1>
       	      <p class = "center" > Hi! My name is Kerry, and I am a STEP Intern and rising 3rd year at the University of Chicago, studying Computer Science. </p> 
      	      <p class = "center" > I am from Elmhurst, Illinois, a suburb of Chicago, and am currently completing the remote internship there! I really enjoy sports, and am on the varsity lacrosse team at UChicago. I also used to play tennis, and still play it for fun whenever I can. Outside of sports, I love biking, and I try to go on several long bike rides a week. When Im just trying to chill, I tend to watch netflix, my most recent show being Money Heist. </p> 
