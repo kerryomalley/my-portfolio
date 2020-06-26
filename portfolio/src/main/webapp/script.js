@@ -42,4 +42,29 @@ function openPage(evt, pageName){
 	document.getElementById(pageName).style.display = "block";
 	evt.currentTarget.className += " active";
 	
+} 
+
+function getMessage() {
+	console.log('Fetching a message.');
+
+	const responsePromise = fetch("/data");
+
+	responsePromise.then(handleResponse);
+
+} 
+
+function handleResponse(response) {
+	console.log('Handling the response.');
+
+	const textPromise = response.text();
+
+	textPromise.then(addMessageToDom);
 }
+
+function addMessageToDom(message) {
+	console.log('Adding message to dom: ' + message);
+
+	const messageContainer = document.getElementById('message-container');
+	messageContainer.innerHTML = message;
+}
+
