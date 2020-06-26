@@ -16,7 +16,11 @@
       <button class = "tabs active" onclick= "openPage(event, 'AboutMe')" id = "defaultOpen"  >About Me</button> 
       <button class = "tabs" onclick= "openPage(event, 'Programming')">Programming</button>
       <button class = "tabs" onclick= "openPage(event, 'FunFacts')">Fun Facts</button>
-      <button class = "tabs" onclick= "openPage(event, 'Pics')">Pictures</button> 
+      <button class = "tabs" onclick= "openPage(event, 'Pics')">Pictures</button>
+      
+      <p> Click here to get a message: </p>
+      <button onclick="getMessage()">Message</button>
+      <div id = "message-container"></div>
 
       <div id="AboutMe" class = "innercontent" style=display:block> 
 	      <h1 class = "center"> Introduction </h1>
