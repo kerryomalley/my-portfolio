@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body> 
+  <body onload = "getMessage()"> 
       
       <div class = "headerofpage"> 
 	      <h1>Kerry O'Malley</h1>
@@ -18,8 +18,11 @@
       <button class = "tabs" onclick= "openPage(event, 'FunFacts')">Fun Facts</button>
       <button class = "tabs" onclick= "openPage(event, 'Pics')">Pictures</button>
       
-      <p> Click here to get a message: </p>
-      <button onclick="getMessage()">Message</button>
+      <h1> Add Comments Here! </h1>
+      <form action = "/data" method = "POST"> 
+	      <input type = "text" name = "comment">
+	      <input type = "submit">
+      </form> 
       <div id = "message-container"></div>
 
       <div id="AboutMe" class = "innercontent" style=display:block> 
