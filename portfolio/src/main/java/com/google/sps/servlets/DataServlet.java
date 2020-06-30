@@ -27,6 +27,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.sps.data.Task;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -38,24 +39,28 @@ public class DataServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    ArrayList<String> storedComments = new ArrayList<String>();
+    ArrayList<Task> storedComments = new ArrayList<Task>();
     for(Entity entity : results.asIterable()) {
+	    long id = entity.getKey().getId();
 	    String comment  = (String) entity.getProperty("comment");
 	    long timestamp = (long) entity.getProperty("timestamp");
 	    
 	    if(comment == ""){
 		continue;
    	    }
-	    storedComments.add(comment);
+
+	    Task task = new Task(id, comment, timestamp);
+	    storedComments.add(task);
     }
-    ArrayList<String> limitedComments = new ArrayList<String>();
+    ArrayList<Task> limitedComments = new ArrayList<Task>();
     for(int counter = 0; (counter <  maxNum)  && (counter < storedComments.size()); counter++)
     {
     	limitedComments.add(storedComments.get(counter));
     }
-    String json = convertToJson(limitedComments);
+
+    Gson gson = new Gson();
     response.setContentType("application/json;");
-    response.getWriter().println(json);
+    response.getWriter().println(gson.toJson(limitedComments));
   }
 
   @Override
@@ -80,13 +85,6 @@ public class DataServlet extends HttpServlet {
 	    return defaultValue;
     }
     return value;
-  }
-
-
-  private String convertToJson(ArrayList<String> list) {
-    Gson gson = new Gson();
-    String json = gson.toJson(list);
-    return json;
   }
 
   private int getUserMaxNum(HttpServletRequest request) {

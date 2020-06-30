@@ -45,26 +45,37 @@ function openPage(evt, pageName){
 } 
 
 function getMessage() {
-	console.log('Fetching a message.');
-
-	const responsePromise = fetch("/data");
-
-	responsePromise.then(handleResponse);
-
-} 
-
-function handleResponse(response) {
-	console.log('Handling the response.');
-
-	const textPromise = response.text();
-
-	textPromise.then(addMessageToDom);
+	fetch('/data').then(response => response.json()).then((comments) => {
+		const commentSection = document.getElementById('message-container');
+		comments.forEach((comment) => {
+			commentSection.appendChild(createComment(comment));
+		})
+	});
 }
 
-function addMessageToDom(message) {
-	console.log('Adding message to dom: ' + message);
+function createComment(message) {
+	const commentElement = document.createElement('li');
+	commentElement.className = 'comment';
+	
+	const messageElement = document.createElement('span');
+	messageElement.innerHTML = message.comment;
 
-	const messageContainer = document.getElementById('message-container');
-	messageContainer.innerHTML = message;
+	const deleteButtonElement = document.createElement('button');
+	deleteButtonElement.innerText = 'Delete';
+	deleteButtonElement.addEventListener('click', () => {
+		deleteData(message);
+
+		commentElement.remove();
+	});
+
+	commentElement.appendChild(messageElement);
+	commentElement.appendChild(deleteButtonElement);
+	return commentElement;
 }
+function deleteData(comment) {
+	console.log('Deleting Data');
+	const params = new URLSearchParams();
+	params.append('id', comment.id);
+	fetch('/delete-data', {method: 'POST', body: params});
 
+}	
