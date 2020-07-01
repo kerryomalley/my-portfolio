@@ -78,4 +78,27 @@ function deleteData(comment) {
 	params.append('id', comment.id);
 	fetch('/delete-data', {method: 'POST', body: params});
 
+}
+
+function userLogin() {
+	console.log('Logging in a user');
+
+	const responsePromise = fetch('/userlogin');
+
+	responsePromise.then(handleResponse);
+}
+
+function handleResponse(response) {
+	console.log('Handling the response');
+
+	const textPromise = response.text();
+
+	textPromise.then(addQuoteToDom);
 }	
+
+function addQuoteToDom(quote) {
+	console.log('Adding quote to dom: ' + quote);
+
+	const quoteContainer = document.getElementById('user-login-content');
+	quoteContainer.innerHTML = quote;
+}
