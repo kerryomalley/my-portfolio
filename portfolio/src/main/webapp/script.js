@@ -81,19 +81,34 @@ function deleteData(comment) {
 }
 
 function userLogin() {
-	console.log('Logging in a user');
-
-	const responsePromise = fetch('/userlogin');
-
-	responsePromise.then(handleResponse);
+	console.log('Fetching login status');
+	
+	const loginStatus =  fetch("/loginstatus");
+	loginStatus.then(response => response.text()).then(message => message.trim()).then(toggleComments);	
 }
+
+
+function toggleComments(isLoggedIn) {
+	console.log('Toggling Comments');
+	if(isLoggedIn == "true") 
+	{
+		document.getElementById('comment-section').style.display = 'block';
+		fetch('/userlogin').then(response => response.text()).then(addQuoteToDom);
+	}
+	else
+	{
+		document.getElementById('comment-section').style.display = 'none';
+		fetch('/userlogin').then(response => response.text()).then(addQuoteToDom);
+	}
+}
+
 
 function handleResponse(response) {
 	console.log('Handling the response');
-
+	
 	const textPromise = response.text();
 
-	textPromise.then(addQuoteToDom);
+	textPromise.then(toggleComments);
 }	
 
 function addQuoteToDom(quote) {

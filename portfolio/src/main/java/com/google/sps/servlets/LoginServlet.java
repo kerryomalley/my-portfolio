@@ -16,13 +16,13 @@ public class LoginServlet extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
 
 		response.setContentType("text/html");
-		
 
 		if(userService.isUserLoggedIn()) {
 			String userEmail = userService.getCurrentUser().getEmail();	
 			String urlRedirectLogout = "/index.html";
 			String logoutUrl = userService.createLogoutURL(urlRedirectLogout);
 
+			response.getWriter().println("Logged in!");
 			response.getWriter().println("<p> Hello " + userEmail + "!</p>");
 			response.getWriter().println("<p>Logout <a href = \"" + logoutUrl + "\">here</a>.</p>");
 		} else {
@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 			String urlRedirectLogin = "/index.html";
 			String loginUrl = userService.createLoginURL(urlRedirectLogin);
 
+			response.getWriter().println("Logged out");
 			response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
 		}
 	}
