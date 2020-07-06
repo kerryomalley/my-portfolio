@@ -46,12 +46,13 @@ public class DataServlet extends HttpServlet {
 	    long id = entity.getKey().getId();
 	    String comment  = (String) entity.getProperty("comment");
 	    long timestamp = (long) entity.getProperty("timestamp");
+	    String email = (String) entity.getProperty("useremail");
 	    
 	    if(comment == ""){
 		continue;
    	    }
 
-	    Task task = new Task(id, comment, timestamp);
+	    Task task = new Task(id, comment, timestamp, email);
 	    storedComments.add(task);
     }
     ArrayList<Task> limitedComments = new ArrayList<Task>();
@@ -71,9 +72,13 @@ public class DataServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
     maxNum = getUserMaxNum(request);
 
+    UserService userService = UserServiceFactory.getUserService();
+    String email = userService.getCurrentUser().getEmail();
+
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("comment", text);
     commentEntity.setProperty("timestamp", timestamp);
+    commentEntity.setProperty("useremail", email);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity); 
