@@ -51,18 +51,15 @@ function getMessage() {
 			commentSection.appendChild(createComment(comment));
 		})
 	});
+
 }
 
 function createComment(message) {
 	const commentElement = document.createElement('li');
 	commentElement.className = 'comment';
-	
-	//const userEmailElement = document.createElememt('span');
-	//userEmailElement.innerHTML = message.email;
 
 	const messageElement = document.createElement('span');
 	messageElement.innerHTML = (message.useremail + "<br>" + message.comment);
-	//messageElement.innerHTML = message.comment;
 
 	const deleteButtonElement = document.createElement('button');
 	deleteButtonElement.innerText = 'Delete';
@@ -72,12 +69,11 @@ function createComment(message) {
 		commentElement.remove();
 	});
 
-	//commentElement.appendChild(userEmailElement);
 	commentElement.appendChild(messageElement);
 	commentElement.appendChild(deleteButtonElement);
 	return commentElement;
 }
-function deleteData(comment) {
+function deleteData(comment) { 
 	console.log('Deleting Data');
 	const params = new URLSearchParams();
 	params.append('id', comment.id);
@@ -121,4 +117,18 @@ function addQuoteToDom(quote) {
 
 	const quoteContainer = document.getElementById('user-login-content');
 	quoteContainer.innerHTML = quote;
+}
+
+//function createMap() {
+//	console.log('creating map');
+//	const map = new google.maps.Map(
+//		document.getElementById("map"),
+//		{center: {lat: 37.422, lng: -122.084}, zoom:16});
+//}
+
+function createMap() {
+	console.log('creating map');
+ 	const map = new google.maps.Map(
+      	document.getElementById('map'),
+      	{center: {lat: 37.422, lng: -122.084}, zoom: 16});
 }

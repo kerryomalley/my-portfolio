@@ -26,6 +26,11 @@ body{
 	width: 50%;
 }
 
+#map {
+	width: 1925px;
+	height: 1925px;
+}
+
 .headerofpage {
 	text-align: center;
 	background: plum;
