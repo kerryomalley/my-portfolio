@@ -4,12 +4,12 @@ public final class Task {
 	private final long id;
 	private final String comment;
 	private final long timestamp;
-	private final String email;
+	private final String useremail;
 
-	public Task(long id, String comment, long timestamp, String email) {
+	public Task(long id, String comment, long timestamp, String useremail) {
 		this.id = id;
 		this.comment = comment;
 		this.timestamp = timestamp;
-		this.email = email;
+		this.useremail = useremail;
 	}
 }

@@ -57,8 +57,12 @@ function createComment(message) {
 	const commentElement = document.createElement('li');
 	commentElement.className = 'comment';
 	
+	//const userEmailElement = document.createElememt('span');
+	//userEmailElement.innerHTML = message.email;
+
 	const messageElement = document.createElement('span');
-	messageElement.innerHTML = message.comment;
+	messageElement.innerHTML = (message.useremail + "<br>" + message.comment);
+	//messageElement.innerHTML = message.comment;
 
 	const deleteButtonElement = document.createElement('button');
 	deleteButtonElement.innerText = 'Delete';
@@ -68,6 +72,7 @@ function createComment(message) {
 		commentElement.remove();
 	});
 
+	//commentElement.appendChild(userEmailElement);
 	commentElement.appendChild(messageElement);
 	commentElement.appendChild(deleteButtonElement);
 	return commentElement;
