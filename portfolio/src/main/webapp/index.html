@@ -12,13 +12,6 @@
 	      <h1>Kerry O'Malley</h1>
 	      <h3> Portfolio </h3>
       </div> 
-
-      <div id = "login"> 
-	
-      </div>
-
-      <button onclick = "userLogin()"> Click to see if you are logged in</button>
-      <div id = "user-login-content"></div>
 	
       <button class = "tabs active" onclick= "openPage(event, 'AboutMe')" id = "defaultOpen"  >About Me</button> 
       <button class = "tabs" onclick= "openPage(event, 'Programming')">Programming</button>
@@ -94,8 +87,12 @@
       	      <button onclick="addRandomGreeting()" class = "center">Fact Button</button>
       	      <div id="fact-container" class = "center"></div>
       </div>
-
-      <div class = "comments-part" id = 'comment-section'>
+	
+      <div class = "login-part"> 
+	      <button onclick = "userLogin()">Current User</button>
+	      <div id = "user-login-content"></div>
+      </div>
+      <div class = 'comments-part' id = 'comment-section'>
 	      <h1> Add Comments Here! </h1>
 	      <form action = "/data" method = "POST">
 		      <input type = "text" name = "comment">

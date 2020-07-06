@@ -40,6 +40,12 @@ body{
 	display: none;
 }
 
+.login-part {
+	background-color: plum;
+	color: white;
+	width: 100%
+}
+
 .tabs {
 	background-color: silver;
 	color: white;
@@ -87,6 +93,8 @@ body{
 	padding: 10px;
 	color: black;
 }
+
+
 
 .comment {
 	border: thin solid black;
