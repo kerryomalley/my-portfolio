@@ -3,18 +3,16 @@
   <head>
     <meta charset="UTF-8">
     <title>My Portfolio</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDv2lbnVJSPYN2XL7agNni6ZKLjtptwGBw"></script>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload = "getMessage()"> 
+  <body onload="getMessage();createMap()"> 
       
       <div class = "headerofpage"> 
 	      <h1>Kerry O'Malley</h1>
 	      <h3> Portfolio </h3>
       </div> 
-
-      <button onclick = "userLogin()"> Click to see if you are logged in</button>
-      <div id = "user-login-content"></div>
 	
       <button class = "tabs active" onclick= "openPage(event, 'AboutMe')" id = "defaultOpen"  >About Me</button> 
       <button class = "tabs" onclick= "openPage(event, 'Programming')">Programming</button>
@@ -26,7 +24,10 @@
 	      <h1 class = "center"> Introduction </h1>
       	      <p class = "center" > Hi! My name is Kerry, and I am a STEP Intern and rising 3rd year at the University of Chicago, studying Computer Science. </p> 
      	      <p class = "center" > I am from Elmhurst, Illinois, a suburb of Chicago, and am currently completing the remote internship there! I really enjoy sports, and am on the varsity lacrosse team at UChicago. I also used to play tennis, and still play it for fun whenever I can. Outside of sports, I love biking, and I try to go on several long bike rides a week. When Im just trying to chill, I tend to watch netflix, my most recent show being Money Heist. </p> 
-	      <img src = "/images/IMG_2225.JPG"  alt = "KerryPicture" class = "center">
+	      <img src = "/images/IMG_2225.JPG"  alt = "KerryPicture" class = "center"> 
+	      <h1> Here is a map of my favorite Hyde Park restaurants </h1> 
+	      <div id = "map"></div>
+
       </div>
 
       <div id="Programming" class = "innercontent">
@@ -78,7 +79,7 @@
 				      <p>Muir Woods in California, one of the most beautiful places I've ever visited</p> 
 			      </div>
 		     </div>
-	      </div>
+	      </div> 
       </div>
 
       <div id="FunFacts" class = "innercontent">
@@ -90,8 +91,12 @@
       	      <button onclick="addRandomGreeting()" class = "center">Fact Button</button>
       	      <div id="fact-container" class = "center"></div>
       </div>
-
-      <div class = "comments-part">
+	
+      <div class = "login-part"> 
+	      <button onclick = "userLogin()">Current User</button>
+	      <div id = "user-login-content"></div>
+      </div>
+      <div class = 'comments-part' id = 'comment-section'>
 	      <h1> Add Comments Here! </h1>
 	      <form action = "/data" method = "POST">
 		      <input type = "text" name = "comment">

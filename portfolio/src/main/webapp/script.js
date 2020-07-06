@@ -51,14 +51,15 @@ function getMessage() {
 			commentSection.appendChild(createComment(comment));
 		})
 	});
+
 }
 
 function createComment(message) {
 	const commentElement = document.createElement('li');
 	commentElement.className = 'comment';
-	
+
 	const messageElement = document.createElement('span');
-	messageElement.innerHTML = message.comment;
+	messageElement.innerHTML = (message.userEmail + "<br>" + message.comment);
 
 	const deleteButtonElement = document.createElement('button');
 	deleteButtonElement.innerText = 'Delete';
@@ -72,7 +73,7 @@ function createComment(message) {
 	commentElement.appendChild(deleteButtonElement);
 	return commentElement;
 }
-function deleteData(comment) {
+function deleteData(comment) { 
 	console.log('Deleting Data');
 	const params = new URLSearchParams();
 	params.append('id', comment.id);
@@ -81,19 +82,34 @@ function deleteData(comment) {
 }
 
 function userLogin() {
-	console.log('Logging in a user');
-
-	const responsePromise = fetch('/userlogin');
-
-	responsePromise.then(handleResponse);
+	console.log('Fetching login status');
+	
+	const loginStatus =  fetch("/loginstatus");
+	loginStatus.then(response => response.text()).then(message => message.trim()).then(toggleComments);	
 }
+
+
+function toggleComments(isLoggedIn) {
+	console.log('Toggling Comments');
+	if(isLoggedIn == "true") 
+	{
+		document.getElementById('comment-section').style.display = 'block';
+		fetch('/userlogin').then(response => response.text()).then(addQuoteToDom);
+	}
+	else
+	{
+		document.getElementById('comment-section').style.display = 'none';
+		fetch('/userlogin').then(response => response.text()).then(addQuoteToDom);
+	}
+}
+
 
 function handleResponse(response) {
 	console.log('Handling the response');
-
+	
 	const textPromise = response.text();
 
-	textPromise.then(addQuoteToDom);
+	textPromise.then(toggleComments);
 }	
 
 function addQuoteToDom(quote) {
@@ -101,4 +117,11 @@ function addQuoteToDom(quote) {
 
 	const quoteContainer = document.getElementById('user-login-content');
 	quoteContainer.innerHTML = quote;
+}
+
+function createMap() {
+	console.log('creating map');
+ 	const map = new google.maps.Map(
+      	document.getElementById('map'),
+      	{center: {lat: 37.422, lng: -122.084}, zoom: 16});
 }
