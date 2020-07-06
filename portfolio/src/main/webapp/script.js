@@ -59,7 +59,7 @@ function createComment(message) {
 	commentElement.className = 'comment';
 
 	const messageElement = document.createElement('span');
-	messageElement.innerHTML = (message.useremail + "<br>" + message.comment);
+	messageElement.innerHTML = (message.userEmail + "<br>" + message.comment);
 
 	const deleteButtonElement = document.createElement('button');
 	deleteButtonElement.innerText = 'Delete';
@@ -118,13 +118,6 @@ function addQuoteToDom(quote) {
 	const quoteContainer = document.getElementById('user-login-content');
 	quoteContainer.innerHTML = quote;
 }
-
-//function createMap() {
-//	console.log('creating map');
-//	const map = new google.maps.Map(
-//		document.getElementById("map"),
-//		{center: {lat: 37.422, lng: -122.084}, zoom:16});
-//}
 
 function createMap() {
 	console.log('creating map');
