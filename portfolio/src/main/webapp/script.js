@@ -123,5 +123,24 @@ function createMap() {
 	console.log('creating map');
  	const map = new google.maps.Map(
       	document.getElementById('map'),
-      	{center: {lat: 37.422, lng: -122.084}, zoom: 16});
+      	{center: {lat: 41.793, lng: -87.594}, zoom: 16});
+
+	const medMarker = new google.maps.Marker({
+		position: {lat: 41.7915, lng: -87.594}, 
+		map: map, 
+		title: 'Medici on 57th'
+	});
+
+	const shinMarker = new google.maps.Marker({
+		position: {lat: 41.799, lng: -87.592},
+		map: map,
+		title: 'Shinjou'
+	});
+
+	const noodlesMarker = new google.maps.Marker({
+		position: {lat: 41.7913,lng: -87.593},
+		map: map,
+		title: 'Noodles Etc.'
+	});
+
 }
