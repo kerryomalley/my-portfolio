@@ -14,10 +14,62 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.io.*;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+	 
+	  Collection<TimeRange> timeSlots = new ArrayList<>();
+	  long duration = request.getDuration();
+	  int time = TimeRange.START_OF_DAY;
+	  Collection<TimeRange> busyTimes = new ArrayList<>();
+	  
+	  if(duration > (24*60)) {
+		return Arrays.asList();
+	  }
+
+	  Collection<String> attendees = request.getAttendees();
+
+	  for(Event e: events) {
+		boolean attendeeOverlap = false;
+		for(String person: attendees) {
+			if(e.getAttendees().contains(person)){
+				attendeeOverlap = true;
+			}
+		}
+		if(attendeeOverlap) {
+			busyTimes.add(e.getWhen());
+		}
+	  }
+
+	  Collections.sort((ArrayList) busyTimes, TimeRange.ORDER_BY_START);
+
+	  for(TimeRange t: busyTimes) {
+		int startTime = t.start();
+		int endTime = t.end();
+		if(endTime <= time) {
+			continue;
+		}
+		TimeRange availableSlot = TimeRange.fromStartEnd(time, startTime, false);
+		time = endTime;
+		int availableDuration = availableSlot.end() - availableSlot.start();
+		if(availableDuration >= duration) {
+			timeSlots.add(availableSlot);
+		}
+	  }
+
+	  if((time < TimeRange.END_OF_DAY) && ((TimeRange.END_OF_DAY - time) >= duration)){
+		TimeRange availableSlot = TimeRange.fromStartEnd(time, TimeRange.END_OF_DAY, true);
+		timeSlots.add(availableSlot);
+	  }
+
+	  return timeSlots;
   }
 }
