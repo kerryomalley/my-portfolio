@@ -25,33 +25,53 @@ import java.io.*;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-	 
-	  Collection<TimeRange> timeSlots = new ArrayList<>();
 	  long duration = request.getDuration();
 	  int time = TimeRange.START_OF_DAY;
-	  Collection<TimeRange> busyTimes = new ArrayList<>();
 	  
 	  if(duration > (24*60)) {
 		return Arrays.asList();
 	  }
 
 	  Collection<String> attendees = request.getAttendees();
+	  Collection<TimeRange> busyTimes = getBusyTimes(events, attendees);
+	  Collection<String> optionalAttendees = request.getOptionalAttendees();
+	  Collection<TimeRange> optionalBusyTimes = getBusyTimes(events, optionalAttendees);
 
-	  for(Event e: events) {
-		boolean attendeeOverlap = false;
-		for(String person: attendees) {
-			if(e.getAttendees().contains(person)){
-				attendeeOverlap = true;
+	  if(attendees.isEmpty()) {
+		Collection<TimeRange> timeSlots = findSlots(optionalBusyTimes, duration);
+		return timeSlots; 
+  	  }
+
+	  Collection<TimeRange> mandatoryTimeSlots = findSlots(busyTimes, duration);
+
+	  if(optionalAttendees.isEmpty()) {
+		return mandatoryTimeSlots;
+	  }
+	  
+	  Collection<TimeRange> timeSlots = new ArrayList<>();
+	  for(TimeRange slot : mandatoryTimeSlots) {
+		for(TimeRange optionalBusy : optionalBusyTimes) {
+			if(slot.overlaps(optionalBusy)) {
+				continue;
 			}
-		}
-		if(attendeeOverlap) {
-			busyTimes.add(e.getWhen());
+			timeSlots.add(slot);
 		}
 	  }
 
-	  Collections.sort((ArrayList) busyTimes, TimeRange.ORDER_BY_START);
+	  if(timeSlots.isEmpty() && !(attendees.isEmpty())) {
+		return mandatoryTimeSlots;
+	  }
+	  return timeSlots;
+	 
 
-	  for(TimeRange t: busyTimes) {
+
+  }
+
+
+  public Collection<TimeRange> findSlots(Collection<TimeRange> busyTimes, long duration) {
+	Collection<TimeRange> timeSlots =  new ArrayList<>();
+	int time = TimeRange.START_OF_DAY;
+	for(TimeRange t: busyTimes) {
 		int startTime = t.start();
 		int endTime = t.end();
 		if(endTime <= time) {
@@ -63,13 +83,32 @@ public final class FindMeetingQuery {
 		if(availableDuration >= duration) {
 			timeSlots.add(availableSlot);
 		}
-	  }
-
-	  if((time < TimeRange.END_OF_DAY) && ((TimeRange.END_OF_DAY - time) >= duration)){
+	}
+	if((time < TimeRange.END_OF_DAY) && ((TimeRange.END_OF_DAY - time) >= duration)){
 		TimeRange availableSlot = TimeRange.fromStartEnd(time, TimeRange.END_OF_DAY, true);
 		timeSlots.add(availableSlot);
-	  }
+	}
+	return timeSlots; 
+  }
+  
 
-	  return timeSlots;
+  public Collection<TimeRange> getBusyTimes(Collection<Event> events, Collection<String> attendees) {
+	Collection<TimeRange> busyTimes = new ArrayList<>();
+
+	for(Event e: events) {
+		boolean attendeeOverlap = false;
+		for(String person: attendees) {
+			if(e.getAttendees().contains(person)){
+				attendeeOverlap = true;
+			}
+		}
+		if(attendeeOverlap) {
+			busyTimes.add(e.getWhen());
+		}
+	}
+
+	Collections.sort((ArrayList) busyTimes, TimeRange.ORDER_BY_START);
+	
+	return busyTimes;
   }
 }
