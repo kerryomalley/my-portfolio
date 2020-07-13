@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getMessage();createMap()"> 
+  <body onload="getMessage();createMap();userLogin()"> 
       
       <div class = "headerofpage"> 
 	      <h1>Kerry O'Malley</h1>
 	      <h3> Portfolio </h3>
       </div> 
+
+      <div class = "login-part">
+	      <div id = "user-login-content"></div>
+      </div>
 	
       <button class = "tabs active" onclick= "openPage(event, 'AboutMe')" id = "defaultOpen"  >About Me</button> 
       <button class = "tabs" onclick= "openPage(event, 'Programming')">Programming</button>
@@ -93,9 +97,6 @@
       </div>
 	
       <div class = "login-part">
-	      <h1> Login/Log off User Info! </h1>
-	      <h3> Must be logged in for comments feature </h3>
-	      <button onclick = "userLogin()">Current User</button>
 	      <div id = "user-login-content"></div>
       </div>
       <div class = 'comments-part' id = 'comment-section'>

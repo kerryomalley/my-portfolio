@@ -22,7 +22,6 @@ public class LoginServlet extends HttpServlet {
 			String urlRedirectLogout = "/index.html";
 			String logoutUrl = userService.createLogoutURL(urlRedirectLogout);
 
-			response.getWriter().println("Logged in!");
 			response.getWriter().println("<p> Hello " + userEmail + "!</p>");
 			response.getWriter().println("<p>Logout <a href = \"" + logoutUrl + "\">here</a>.</p>");
 		} else {
