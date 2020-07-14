@@ -32,7 +32,7 @@ public final class FindMeetingQuery {
     int time = TimeRange.START_OF_DAY;
 	  
     // Check that meeting request is not longer than a day
-    if(duration > (24*60)) {
+    if (duration > (24*60)) {
       return Arrays.asList();
     }
 
@@ -43,7 +43,7 @@ public final class FindMeetingQuery {
 	    getBusyTimes(events, optionalAttendees);
 
     // Check if there are no mandatory attendees
-    if(attendees.isEmpty()) {
+    if (attendees.isEmpty()) {
       Collection<TimeRange> timeSlots = findSlots(optionalBusyTimes, duration);
       return timeSlots; 
     }
@@ -51,16 +51,16 @@ public final class FindMeetingQuery {
     Collection<TimeRange> mandatoryTimeSlots = findSlots(busyTimes, duration);
 
     // Check if there are no optional attendees 
-    if(optionalAttendees.isEmpty()) {
+    if (optionalAttendees.isEmpty()) {
       return mandatoryTimeSlots;
     }
 	  
     Collection<TimeRange> timeSlots = new ArrayList<>();
 
     // If there are optional and mandatory attendees, see if there are overlaps 
-    for(TimeRange slot : mandatoryTimeSlots) {
-      for(TimeRange optionalBusy : optionalBusyTimes) {
-	if(slot.overlaps(optionalBusy)) {
+    for (TimeRange slot : mandatoryTimeSlots) {
+      for (TimeRange optionalBusy : optionalBusyTimes) {
+	if (slot.overlaps(optionalBusy)) {
 	  continue;
 	}
 	timeSlots.add(slot);
@@ -69,7 +69,7 @@ public final class FindMeetingQuery {
 
     // If there were no times that the optional attendees could also come to, 
     // ignore them and just use mandatory attendees 
-    if(timeSlots.isEmpty() && !(attendees.isEmpty())) {
+    if (timeSlots.isEmpty() && !(attendees.isEmpty())) {
       return mandatoryTimeSlots;
     }
     return timeSlots;
@@ -84,11 +84,11 @@ public final class FindMeetingQuery {
 
     // Go through the time ranges they are busy and 
     // find the ones the attendees are free during 
-    for(TimeRange t: busyTimes) {
+    for (TimeRange t: busyTimes) {
       int startTime = t.start();
       int endTime = t.end();
 
-      if(endTime <= time) {
+      if (endTime <= time) {
 	continue;
       }
 
@@ -96,17 +96,17 @@ public final class FindMeetingQuery {
       time = endTime;
       int availableDuration = availableSlot.end() - availableSlot.start();
 
-      if(availableDuration >= duration) {
+      if (availableDuration >= duration) {
         timeSlots.add(availableSlot);
       }
     }
 
     // If after the last busy time slot there is still sufficient time 
     // for a meeting before the day ends, add that time as well 
-    if((time < TimeRange.END_OF_DAY) && 
-		    ((TimeRange.END_OF_DAY - time) >= duration)){
+    if ((time < TimeRange.END_OF_DAY) && 
+        ((TimeRange.END_OF_DAY - time) >= duration)){
       TimeRange availableSlot = 
-	      TimeRange.fromStartEnd(time, TimeRange.END_OF_DAY, true);
+          TimeRange.fromStartEnd(time, TimeRange.END_OF_DAY, true);
       timeSlots.add(availableSlot);
     }
 
@@ -121,15 +121,15 @@ public final class FindMeetingQuery {
     
     // For each event, if the attendees of it are part of the given attendees 
     // Add that to the times the attendees are busy during 
-    for(Event e: events) {
+    for (Event e: events) {
       boolean attendeeOverlap = false;
-      for(String person: attendees) {
-        if(e.getAttendees().contains(person)){
+      for (String person: attendees) {
+        if (e.getAttendees().contains(person)){
 	  attendeeOverlap = true;
         }
       }
 
-      if(attendeeOverlap) {
+      if (attendeeOverlap) {
 	busyTimes.add(e.getWhen());
       }
     }

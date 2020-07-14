@@ -37,22 +37,24 @@ import com.google.appengine.api.users.UserServiceFactory;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   int maxNum = 5;
+
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment").addSort("timestamp", 
-		    SortDirection.DESCENDING);
+  public void doGet(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException {
+    Query query = new Query("Comment")
+        .addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
     ArrayList<Task> storedComments = new ArrayList<Task>();
 
     // Go through each stored entity and create a Task, then store that
-    for(Entity entity : results.asIterable()) {
+    for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
       String comment  = (String) entity.getProperty("comment");
       long timestamp = (long) entity.getProperty("timestamp");
       String email = (String) entity.getProperty("useremail");
 	  
-      if(comment == "") {
+      if (comment == "") {
 	continue;
       }
 
@@ -63,7 +65,7 @@ public class DataServlet extends HttpServlet {
     ArrayList<Task> limitedComments = new ArrayList<Task>();
 
     // Go through the stored Tasks and restore  only the user specified limit 
-    for(int counter = 0; (counter <  maxNum)  && 
+    for (int counter = 0; (counter <  maxNum)  && 
 		    (counter < storedComments.size()); counter++) {
       limitedComments.add(storedComments.get(counter));
     }
@@ -101,7 +103,7 @@ public class DataServlet extends HttpServlet {
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
 
-    if(value == null) {
+    if (value == null) {
       return defaultValue;
     }
 
