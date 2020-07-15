@@ -17,16 +17,20 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
+/**
+ * Delete the stored entities
+ */
 @WebServlet("/delete-data")
 public class DeleteData extends HttpServlet {
 	
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		long id = Long.parseLong(request.getParameter("id")); 
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    long id = Long.parseLong(request.getParameter("id")); 
+		
+    // Delete the comment entity with the specified ID 
+    Key commentEntityKey = KeyFactory.createKey("Comment", id);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.delete(commentEntityKey);
 
-		Key commentEntityKey = KeyFactory.createKey("Comment", id);
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		datastore.delete(commentEntityKey);
-
-	}
+    }
 }

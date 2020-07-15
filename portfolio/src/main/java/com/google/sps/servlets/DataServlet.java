@@ -31,36 +31,46 @@ import com.google.sps.data.Task;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** 
+ * Get comments from the user and post them to the screen 
+ */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   int maxNum = 5;
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException {
+    Query query = new Query("Comment")
+        .addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
     ArrayList<Task> storedComments = new ArrayList<Task>();
-    for(Entity entity : results.asIterable()) {
-	    long id = entity.getKey().getId();
-	    String comment  = (String) entity.getProperty("comment");
-	    long timestamp = (long) entity.getProperty("timestamp");
-	    String email = (String) entity.getProperty("useremail");
-	    
-	    if(comment == ""){
-		continue;
-   	    }
 
-	    Task task = new Task(id, comment, timestamp, email);
-	    storedComments.add(task);
+    // Go through each stored entity and create a Task, then store that
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String comment  = (String) entity.getProperty("comment");
+      long timestamp = (long) entity.getProperty("timestamp");
+      String email = (String) entity.getProperty("useremail");
+	  
+      if (comment == "") {
+	continue;
+      }
+
+      Task task = new Task(id, comment, timestamp, email);
+      storedComments.add(task);
     }
+    
     ArrayList<Task> limitedComments = new ArrayList<Task>();
-    for(int counter = 0; (counter <  maxNum)  && (counter < storedComments.size()); counter++)
-    {
-    	limitedComments.add(storedComments.get(counter));
+
+    // Go through the stored Tasks and restore  only the user specified limit 
+    for (int counter = 0; (counter <  maxNum)  && 
+		    (counter < storedComments.size()); counter++) {
+      limitedComments.add(storedComments.get(counter));
     }
 
+    // Send the comments back to be printed to the screen 
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(limitedComments));
@@ -68,13 +78,14 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the variables the user has input to the form
     String text = getParameter(request, "comment", "");
     long timestamp = System.currentTimeMillis();
     maxNum = getUserMaxNum(request);
-
     UserService userService = UserServiceFactory.getUserService();
     String email = userService.getCurrentUser().getEmail();
 
+    // Create an entity from the user input variables and store it 
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("comment", text);
     commentEntity.setProperty("timestamp", timestamp);
@@ -86,24 +97,34 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 
+  /**
+   * Get the parameters that a user has input
+   */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
-    if(value == null) {
-	    return defaultValue;
+
+    if (value == null) {
+      return defaultValue;
     }
+
     return value;
   }
 
+  /**
+   * Get the maximum number the user has put in and make sure it is valid
+   */
   private int getUserMaxNum(HttpServletRequest request) {
     String userMaxNumString = request.getParameter("maxNum");
-
     int maxNum;
+    
+    // Throw an error if the user does not enter a number 
     try {
-	    maxNum = Integer.parseInt(userMaxNumString);
+      maxNum = Integer.parseInt(userMaxNumString);
     } catch (NumberFormatException e) {
-	    System.err.println("Input not a number: " + userMaxNumString);
-	    return -1;
+      System.err.println("Input not a number: " + userMaxNumString);
+      return -1;
     }
+
     return maxNum; 
   }
 }

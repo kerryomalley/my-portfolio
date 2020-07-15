@@ -7,106 +7,132 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getMessage();createMap()"> 
-      
-      <div class = "headerofpage"> 
-	      <h1>Kerry O'Malley</h1>
-	      <h3> Portfolio </h3>
+  <body onload="getMessage();createMap();userLogin()"> 
+    <!-- Header Section -->
+    <div class="headerofpage"> 
+      <h1>Kerry O'Malley</h1>
+      <h3> Portfolio </h3>
+    </div> 
+    <!-- Login status and button -->
+    <div class="login-part">
+      <div id="user-login-content"></div>
+    </div>
+   
+    <button class="tabs active" onclick="openPage(event, 'AboutMe')" id="defaultOpen">About Me</button> 
+    <button class="tabs" onclick="openPage(event, 'Programming')">Programming</button>
+    <button class="tabs" onclick="openPage(event, 'FunFacts')">Fun Facts</button>
+    <button class="tabs" onclick="openPage(event, 'Pics')">Pictures</button> 
+
+    <!-- About me tab -->
+    <div id="AboutMe" class="innercontent" style=display:block> 
+      <h1 class="center">Introduction</h1>
+      <p class="center">Hi! My name is Kerry, and I am a STEP Intern 
+      and rising 3rd year at the University of Chicago, studying Computer Science.</p> 
+      <p class="center">I am from Elmhurst, Illinois, a suburb of Chicago, 
+      and am currently completing the remote internship there! I really enjoy sports,
+      and am on the varsity lacrosse team at UChicago. I also used to play tennis, 
+      and still play it for fun whenever I can. Outside of sports, I love biking, 
+      and I try to go on several long bike rides a week. When Im just trying to chill, 
+      I tend to watch netflix, my most recent show being Money Heist.</p> 
+      <img src="/images/IMG_2225.JPG" alt="KerryPicture" class="center"> 
+
+      <h1>Here is a map of my favorite Hyde Park restaurants</h1> 
+      <div id="map"></div>
+    </div>
+    
+    <!-- Programming tab -->
+    <div id="Programming" class="innercontent">
+      <h1 class="center">Background</h1>
+      <p class="center">I got into coding senior year of high school when 
+      I decided to take a Computer Science course offered by my school. We learned Java, 
+      and did a ton of interesting and fun projects, so it ended up being my favorite class of that year. 
+      I have been able to learn so much more through the programming courses I have taken so far in college, 
+      including C, and in my time helping develop CS curriculum for CPS through a non-profit, 
+      I was able to learn Python, HTML, and CSS. I've loved all the programming 
+      I've been able to do so far in my life, 
+      and am so excited to apply what I know and develop my skills further this summer!</p> <br> 
+
+      <h1 class="center">Past Projects</h1>
+      <p class="center">Here is a list of some projects I have worked on:</p>
+      <ul class="center"> 
+        <li>Created my own version of a linux shell</li>
+	<li>Coded the game Go</li>
+	<li>Developed curriculum on how to create a web application using flask and python</li>
+	<li>Created my own cersion of the Malloc function</li>
+	<li>Creaated a 2-way associative cache with LRU replacement</li>
+      </ul> 
+      <br>
+
+      <h1 class="center">Profiles</h1>
+      <p class="center">Here are the links to my LinkedIn and Github profiles</p>
+      <a href="https://www.linkedin.com/in/kerry-o-malley-74a320179/" class="center">LinkedIn</a> <br>
+      <a href="https://github.com/kerryomalley" class="center">GitHub</a>
+    </div> 
+    
+    <!-- Pictures tab -->
+    <div id="Pics" class="innercontent"> 
+      <div class="row">
+        <div class="column"> 
+	  <div class="piccontent"> 
+	    <img src="/images/IMG_0164.JPG" alt="My dog Atticus" style="width:100%"> 
+	    <h3> My dog Atticus Finch </h3> 
+	    <p>Atticus is 7 years old and a Jack Russel Terrier mix</p>
+	  </div>
+        </div>
+
+        <div class="column">
+	  <div class="piccontent"> 
+            <img src="https://news.uchicago.edu/sites/default/files/styles/full_width/public/images/2019-02/Laxteam1380.jpg?itok=n90L0szK" 
+	    alt="University of Chicago Lacrosse Team" style="width:100%" > 
+	    <h3>University of Chicago Lacrossse</h3>
+	    <p>My lacrosse team before one of our first games ever, fall of 2018</p>
+          </div>
+        </div>
+
+        <div class="column">
+	  <div class="piccontent">
+	    <img src="https://images.squarespace-cdn.com/content/v1/5c2a6a3f8ab7224aa18f545c/1548033023340-NBLCD68158BEIODWRL3Z/ke17ZwdGBToddI8pDm48kHeVmR2l3tIkQlLXONYte_gUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcRUn_L5N_EA4hubcHB9zHuIsRuF4kgYxONQ41k-gpsnATDsERM5b_PQFGnUdV3EYb/3062.jpg"
+	    alt="Promontory Point" style="width:100%">
+	    <h3>A favorite place</h3>
+	    <p>Promontory Point in Chicago, one of my favorite places to go with my friends</p>
+	  </div>
+	</div>
+
+        <div class="column">
+	  <div class="piccontent">
+	    <img src="https://www.parksconservancy.org/sites/default/files/styles/hero/public/hero/MUWO_160218_VKT-122.jpg?itok=jq1yledm&timestamp=1541527334" 
+	    alt="Muir Woods" style="width:100%">
+	    <h3>A favorite vacation</h3>
+	    <p>Muir Woods in California, one of the most beautiful places I've ever visited</p> 
+	  </div>
+        </div>
       </div> 
+    </div>
+
+    <!-- Fun Facts tab -->
+    <div id="FunFacts" class="innercontent">
+      <h1 class="center">Hidden Talent</h1>
+      <p class="center">My family and I have played cards for as long as I can remember, 
+      so I learned to play at a very young age. At every family gathering we play games 
+      like Euchre and Pitch, and over the years I have gotten quite good at it. 
+      I have also mastered a few card tricks.</p>
+      <br> 
+      <h1 class="center">Fun Facts</h1> 
+      <p class="center">Click here to get a random fact about me!</p>
+      <button onclick="addRandomGreeting()" class="center">Fact Button</button>
+      <div id="fact-container" class="center"></div>
+    </div>
 	
-      <button class = "tabs active" onclick= "openPage(event, 'AboutMe')" id = "defaultOpen"  >About Me</button> 
-      <button class = "tabs" onclick= "openPage(event, 'Programming')">Programming</button>
-      <button class = "tabs" onclick= "openPage(event, 'FunFacts')">Fun Facts</button>
-      <button class = "tabs" onclick= "openPage(event, 'Pics')">Pictures</button> 
-
-
-      <div id="AboutMe" class = "innercontent" style=display:block> 
-	      <h1 class = "center"> Introduction </h1>
-      	      <p class = "center" > Hi! My name is Kerry, and I am a STEP Intern and rising 3rd year at the University of Chicago, studying Computer Science. </p> 
-     	      <p class = "center" > I am from Elmhurst, Illinois, a suburb of Chicago, and am currently completing the remote internship there! I really enjoy sports, and am on the varsity lacrosse team at UChicago. I also used to play tennis, and still play it for fun whenever I can. Outside of sports, I love biking, and I try to go on several long bike rides a week. When Im just trying to chill, I tend to watch netflix, my most recent show being Money Heist. </p> 
-	      <img src = "/images/IMG_2225.JPG"  alt = "KerryPicture" class = "center"> 
-	      <h1> Here is a map of my favorite Hyde Park restaurants </h1> 
-	      <div id = "map"></div>
-
-      </div>
-
-      <div id="Programming" class = "innercontent">
-	      <h1 class = "center"> Background </h1>
-	      <p class = "center"> I got into coding senior year of high school when I decided to take a Computer Science course offered by my school. We learned Java, and did a ton of interesting and fun projects, so it ended up being my favorite class of that year. I have been able to learn so much more through the programming courses I have taken so far in college, including C, and in my time helping develop CS curriculum for CPS through a non-profit, I was able to learn Python, HTML, and CSS. I've loved all the programming I've been able to do so far in my life, and am so excited to apply what I know and develop my skills further this summer! </p>  <br> 
-	      <h1 class = "center"> Past Projects </h1>
-              <p class = "center"> Here is a list of some projects I have worked on: </p>
-      	      <ul class = "center"> 
-		      <li> Created my own version of a linux shell </li>
-	      	      <li> Coded the game Go </li>
-	              <li> Developed curriculum on how to create a web application using flask and python </li>
-	              <li> Created my own cersion of the Malloc function </li>
-	              <li> Creaated a 2-way associative cache with LRU replacement </li>
-              </ul> 
-	      <br>
-	      <h1 class = "center"> Profiles </h1>
-	      <p class = "center"> Here are the links to my LinkedIn and Github profiles </p>
-	      <a href = "https://www.linkedin.com/in/kerry-o-malley-74a320179/" class = "center">LinkedIn</a> <br>
-	      <a href = "https://github.com/kerryomalley" class = "center">GitHub</a>
-      </div> 
-
-      <div id="Pics" class = "innercontent"> 
-	      <div class = "row">
-		      <div class = "column"> 
-			      <div class = "piccontent"> 
-				      <img src = "/images/IMG_0164.JPG" alt  = "My dog Atticus" style = "width:100%"> 
-				      <h3> My dog Atticus Finch </h3> 
-				      <p> Atticus is 7 years old and a Jack Russel Terrier mix </p>
-			      </div>
-		      </div>
-		      <div class= "column">
-			      <div class = "piccontent"> 
-				      <img src = "https://news.uchicago.edu/sites/default/files/styles/full_width/public/images/2019-02/Laxteam1380.jpg?itok=n90L0szK" alt = "University of Chicago Lacrosse Team" style = "width:100%" > 
-		      		      <h3>University of Chicago Lacrossse</h3>
-				      <p> My lacrosse team before one of our first games ever, fall of 2018 </p>
-			      </div>
-		      </div>
-		      <div class = "column">
-			      <div class = "piccontent">
-				      <img src = "https://images.squarespace-cdn.com/content/v1/5c2a6a3f8ab7224aa18f545c/1548033023340-NBLCD68158BEIODWRL3Z/ke17ZwdGBToddI8pDm48kHeVmR2l3tIkQlLXONYte_gUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcRUn_L5N_EA4hubcHB9zHuIsRuF4kgYxONQ41k-gpsnATDsERM5b_PQFGnUdV3EYb/3062.jpg" alt = "Promontory Point" style = "width:100%" >
-				      <h3> A favorite place </h3>
-				      <p>Promontory Point in Chicago, one of my favorite places to go with my friends</p>
-			      </div>
-	              </div>
-		      <div class = "column">
-			      <div class = "piccontent">
-				      <img src = "https://www.parksconservancy.org/sites/default/files/styles/hero/public/hero/MUWO_160218_VKT-122.jpg?itok=jq1yledm&timestamp=1541527334" alt = "Muir Woods" style = "width:100%" >
-				      <h3> A favorite vacation</h3>
-				      <p>Muir Woods in California, one of the most beautiful places I've ever visited</p> 
-			      </div>
-		     </div>
-	      </div> 
-      </div>
-
-      <div id="FunFacts" class = "innercontent">
-	      <h1 class = "center"> Hidden Talent </h1>
-	      <p class = "center"> My family and I have played cards for as long as I can remember, so I learned to play at a very young age. At every family gathering we play games like Euchre and Pitch, and over the years I have gotten quite good at it. I have also mastered a few card tricks. </p>
-	      <br> 
-	      <h1 class = "center"> Fun Facts </h1> 
-	      <p class = "center">Click here to get a random fact about me! </p>
-      	      <button onclick="addRandomGreeting()" class = "center">Fact Button</button>
-      	      <div id="fact-container" class = "center"></div>
-      </div>
-	
-      <div class = "login-part">
-	      <h1> Login/Log off User Info! </h1>
-	      <h3> Must be logged in for comments feature </h3>
-	      <button onclick = "userLogin()">Current User</button>
-	      <div id = "user-login-content"></div>
-      </div>
-      <div class = 'comments-part' id = 'comment-section'>
-	      <h1> Add Comments Here! </h1>
-	      <form action = "/data" method = "POST">
-		      <input type = "text" name = "comment">
-		      <p> How many comments would you like displayed? </p>
-		      <input type = "number" name = "maxNum"> <br>
-		      <input type = "submit">
-	      </form>
-	      <ul id = "message-container"></ul>
-      </div> 
+    <!-- Comments Section -->
+    <div class="comments-part" id="comment-section">
+      <h1>Add Comments Here!</h1>
+      <form action="/data" method="POST">
+        <input type="text" name="comment">
+	<p>How many comments would you like displayed?</p>
+	<input type="number" name="maxNum"> <br>
+	<input type="submit">
+      </form>
+      <ul id="message-container"></ul>
+    </div> 
   </body>
 </html>
