@@ -34,7 +34,7 @@ function addRandomGreeting() {
  * Opens the tab that has been clicked on 
  */
 function openPage(evt, pageName) {
-  var i, innercontent, links;
+  let i, innercontent, links;
   innercontent = document.getElementsByClassName("innercontent");
 
   // Make the other tabs invisible 	
